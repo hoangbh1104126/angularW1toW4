@@ -1,0 +1,115 @@
+<hello name="{{ name }}"></hello>
+
+<h2>{{ day | date: 'medium' | uppercase }}</h2>
+<p>S: {{ money1 }} : {{ money1 | usdOrVnd }}</p>
+<p>S: {{ money2 }} : {{ money2 | usdOrVnd }}</p>
+
+<h4>Choose Tab</h4>
+
+<hr />
+
+<button class="buttonTab" (click)="showTab = !showTab">
+  <h3 *ngIf="showTab">Hide all tab</h3>
+  <h3 *ngIf="!showTab">Show all tab</h3>
+</button>
+
+<hr />
+
+<app-tab-group>
+  <app-tab-panel title="Week 1" *ngIf="showTab">
+    <ng-template testTabContent>
+      <hr style="background-color: red; height: 0.25rem;" />
+      <app-road></app-road>
+      <h1>Week 1</h1>
+      <hr />
+
+      <app-helloAdmin></app-helloAdmin>
+      <app-hello></app-hello>
+    </ng-template>
+  </app-tab-panel>
+  <app-tab-panel title="Week 2" *ngIf="showTab">
+    <ng-template testTabContent>
+      <hr style="background-color: blue; height: 0.25rem;" />
+      <app-road></app-road>
+      <h1>Week 2</h1>
+      <hr />
+
+      <app-testform1
+        (newNoteEvent)="addNote1($event)"
+        [name]="name"
+      ></app-testform1>
+      <ol>
+        <li *ngFor="let note of notes">{{ note }}</li>
+        <span
+          >Delete lastest note: <button (click)="deleteNote1()">X</button></span
+        >
+      </ol>
+    </ng-template>
+  </app-tab-panel>
+  <app-tab-panel title="Week 3" *ngIf="showTab">
+    <ng-template testTabContent>
+      <hr style="background-color: green; height: 0.25rem;" />
+      <app-road></app-road>
+      <h1>Week 3</h1>
+      <hr />
+
+      <app-testform2
+        (newNoteEvent)="addNote2($event)"
+        [name]="name"
+        [num]="num"
+        #formComp
+      ></app-testform2>
+      <hr />
+      <app-testform2
+        (newNoteEvent)="addNote2($event)"
+        [name]="name"
+        [num]="num"
+        #formComp
+      ></app-testform2>
+      <hr />
+
+      <!--ngFor & ngIf-->
+      <ol>
+        <li *ngFor="let note of note; odd as isOdd; even as isEven">
+          <ng-template [ngIf]="isOdd">
+            <span style="color: teal">{{ note }}</span>
+          </ng-template>
+          <ng-template [ngIf]="isEven">
+            <span style="color: maroon">{{ note }}</span>
+          </ng-template>
+          <button (click)="deleteNote2(note)">X</button>
+        </li>
+      </ol>
+
+      <!--ngForOf & ngIf-->
+      <ol>
+        <ng-template
+          ngFor
+          let-note="$implicit"
+          [ngForOf]="note"
+          let-isOdd="odd"
+          let-isEven="even"
+        >
+          <li>
+            <ng-template [ngIf]="isOdd">
+              <span style="color: blue">{{ note }}</span>
+            </ng-template>
+            <ng-template [ngIf]="isEven">
+              <span style="color: blueviolet">{{ note }}</span>
+            </ng-template>
+            <button (click)="deleteNote2(note)">X</button>
+          </li>
+        </ng-template>
+      </ol>
+
+      <button (click)="formComp.printProfile()">Submit here</button>
+    </ng-template>
+  </app-tab-panel>
+  <app-tab-panel title="Week ?" *ngIf="!showTab">
+    <ng-template testTabContent>
+      <app-road></app-road>
+      <h1>Week ?</h1>
+      <hr />
+    </ng-template>
+  </app-tab-panel>
+</app-tab-group>

@@ -1,0 +1,17 @@
+.tab-header {
+  display: flex;
+  font-size: larger;
+  color: blue;
+}
+
+.tab-item-header {
+  padding: 10px 20px;
+  margin: auto;
+  border: 5px inset yellowgreen;
+  background-color: yellow;
+}
+
+.tab-item-header:active {
+  color: red;
+  font-size: x-large;
+}
